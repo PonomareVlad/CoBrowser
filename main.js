@@ -51,8 +51,8 @@ function send(){
                     }
                 }
             }
-        }
-        xmlhttp.open('GET', 'http://scms.esy.es/cobrowse.php?data=' + query, true);
+        };
+        xmlhttp.open('GET', 'http://scms.esy.es/cobrowse/cobrowse.php?data=' + query, true);
         xmlhttp.send();
     }
 }
@@ -76,8 +76,8 @@ function recept() {
                 }
             }
         }
-    }
-    xmlhttp.open('GET', 'http://scms.esy.es/cobrowse.php', true);
+    };
+    xmlhttp.open('GET', 'http://scms.esy.es/cobrowse/cobrowse.php', true);
     xmlhttp.send();
 }
 
