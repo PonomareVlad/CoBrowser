@@ -8,7 +8,7 @@ DATA['TIME']=new Date().getTime();
 var pagename=location.pathname.split('/');
 pagename=pagename[pagename.length-1];
 var HREF=location.toString();
-HREF=HREF.split(pagename).join('');
+HREF=HREF.split(pagename+location.search).join('');
 
 window.onload=function(){
     if(location.search.substr(1)=='view'){
@@ -108,8 +108,6 @@ function get(objID) {
 
 function correctTimeout(now,old){
     time=now-old; // XHR Time
-    if(time>1000){time=1000;}
-    if(time<100){time=100;}
     //////// Sync Timeout ////////
     // Old variant:
     // time=parseInt((time/2)+(timeout/2));
@@ -117,6 +115,8 @@ function correctTimeout(now,old){
     // New variant:
     time=parseInt(time>timeout?(timeout+((timeout+time)/4)):(timeout-((timeout+time)/4)));
     //////////////////////////////
+    if(time>1000){time=1000;}
+    if(time<100){time=100;}
     console.log(time);
     return time;
 }
