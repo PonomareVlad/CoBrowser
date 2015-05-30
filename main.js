@@ -7,7 +7,7 @@ DATA['TIME']=new Date().getTime();
 
 window.onload=function(){
     if(location.search.substr(1)=='view'){
-        document.write('<img src="pointer.png" id="pointer"/>');
+        document.body.innerHTML='<img src="pointer.png" id="pointer"/>';
         setInterval(recept,1000);
     }else{
         window.onmousemove=onMove;
@@ -58,6 +58,7 @@ function send(){
 }
 
 function recept() {
+    DATA['TIME']=new Date().getTime();
     var xmlhttp;
     if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
@@ -82,8 +83,9 @@ function recept() {
 }
 
 function show(){
-    get('pointer').style.top=DATA['Ymouse'];
-    get('pointer').style.left=DATA['Xmouse'];
+    get('pointer').style.position='absolute';
+    get('pointer').style.top=DATA['Ymouse']+'px';
+    get('pointer').style.left=DATA['Xmouse']+'px';
 }
 
 function get(objID) {
