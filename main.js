@@ -5,8 +5,10 @@ DATA['Xmouse']=0;
 DATA['Ymouse']=0;
 DATA['Click']=false;
 DATA['TIME']=new Date().getTime();
-
-var HREF=location.origin+location.pathname;
+var pagename=location.pathname.split('/');
+pagename=pagename[pagename.length-1];
+var HREF=location.toString();
+HREF=HREF.split(pagename).join('');
 
 window.onload=function(){
     if(location.search.substr(1)=='view'){
@@ -59,7 +61,7 @@ function send(){
                 }
             }
         };
-        xmlhttp.open('GET', HREF+'/cobrowse.php?data=' + query, true);
+        xmlhttp.open('GET', HREF+'cobrowse.php?data=' + query, true);
         xmlhttp.send();
     }
     setTimeout(send,timeout);
@@ -87,7 +89,7 @@ function recept() {
             }
         }
     };
-    xmlhttp.open('GET', HREF+'/cobrowse.php', true);
+    xmlhttp.open('GET', HREF+'cobrowse.php', true);
     xmlhttp.send();
     setTimeout(recept,timeout);
 }
@@ -113,7 +115,7 @@ function correctTimeout(now,old){
     // time=parseInt((time/2)+(timeout/2));
     ////////
     // New variant:
-    time=parseInt(time>timeout?(timeout+(time/2)):(timeout-(time/2)));
+    time=parseInt(time>timeout?(timeout+((timeout+time)/4)):(timeout-((timeout+time)/4)));
     //////////////////////////////
     console.log(time);
     return time;
