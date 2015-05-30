@@ -1,3 +1,4 @@
+var timeout=500;
 var DATA={};
 var WAIT=false;
 DATA['Xmouse']=0;
@@ -8,11 +9,11 @@ DATA['TIME']=new Date().getTime();
 window.onload=function(){
     if(location.search.substr(1)=='view'){
         document.body.innerHTML='<img src="pointer.png" id="pointer"/>';
-        setInterval(recept,1000);
+        setInterval(recept,timeout);
     }else{
         window.onmousemove=onMove;
         document.body.onclick=onClick;
-        setInterval(send,1000);
+        setInterval(send,timeout);
     }
 }
 
