@@ -6,9 +6,14 @@ DATA['Click']=false;
 DATA['TIME']=new Date().getTime();
 
 window.onload=function(){
-    window.onmousemove=onMove;
-    document.body.onclick=onClick;
-    setInterval(send,1000);
+    if(location.search.substr(1)=='view'){
+        document.write('<img src="pointer.png" id="pointer"/>');
+        setInterval(recept,1000);
+    }else{
+        window.onmousemove=onMove;
+        document.body.onclick=onClick;
+        setInterval(send,1000);
+    }
 }
 
 function onMove(e){
@@ -50,4 +55,39 @@ function send(){
         xmlhttp.open('GET', 'http://scms.esy.es/cobrowse.php?data=' + query, true);
         xmlhttp.send();
     }
+}
+
+function recept() {
+    var xmlhttp;
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4) {
+            if (xmlhttp.status == 200) {
+                response = JSON.parse(xmlhttp.responseText);
+                if (response['TIME']) {
+                    DATA=response;
+                    show();
+                }else{
+                    console.log('Server error');
+                }
+            }
+        }
+    }
+    xmlhttp.open('GET', 'http://scms.esy.es/cobrowse.php', true);
+    xmlhttp.send();
+}
+
+function show(){
+    get('pointer').style.top=DATA['Ymouse'];
+    get('pointer').style.left=DATA['Xmouse'];
+}
+
+function get(objID) {
+    if (document.getElementById) {return document.getElementById(objID);}
+    else if (document.all) {return document.all[objID];}
+    else if (document.layers) {return document.layers[objID];}
 }
